@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¡Estás invitado! 🎉</title>
+<meta name="description" content="Quinta en Roldán, DJ y música hasta que salga el sol. Confirmá acá 👇">
+<meta property="og:title" content="¡Estás invitado al cumple! 🎉🪩">
+<meta property="og:description" content="Quinta en Roldán, DJ y música hasta que salga el sol. Confirmá acá 👇">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+--rosa:#ff3d9a; --amarillo:#ffd23f; --verde:#3dffb0; --celeste:#3dd6ff; --violeta:#8b3dff;
+--card:rgba(255,255,255,.09); --borde:rgba(255,255,255,.18);
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html,body{margin:0}
+body{
+font-family:'Fredoka',system-ui,sans-serif; color:#fff; min-height:100vh;
+background:#16052e; overflow-x:hidden;
+}
+body::before,body::after{
+content:""; position:fixed; inset:-20%; z-index:-1; pointer-events:none;
+background:
+radial-gradient(circle at 20% 30%, rgba(255,61,154,.45), transparent 35%),
+radial-gradient(circle at 80% 20%, rgba(61,214,255,.35), transparent 35%),
+radial-gradient(circle at 60% 85%, rgba(139,61,255,.5), transparent 40%);
+animation:luces 12s ease-in-out infinite alternate;
+}
+body::after{
+background:
+radial-gradient(circle at 75% 70%, rgba(255,210,63,.25), transparent 30%),
+radial-gradient(circle at 15% 80%, rgba(61,255,176,.2), transparent 30%);
+animation-duration:9s; animation-direction:alternate-reverse;
+}
+@keyframes luces{
+0%{transform:translate(0,0) rotate(0)}
+50%{transform:translate(4%,-3%) rotate(8deg)}
+100%{transform:translate(-4%,3%) rotate(-6deg)}
+}
+#confeti{position:fixed; inset:0; pointer-events:none; z-index:50}
+.wrap{max-width:540px; margin:0 auto; padding:28px 18px 60px}
+.wrap.admin{max-width:920px}
+.card{
+background:var(--card); border:1px solid var(--borde); border-radius:22px;
+padding:20px; margin:16px 0; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+}
+h1,h2,h3{margin:0 0 10px}
+.bungee{font-family:'Bungee',cursive; letter-spacing:.5px}
+button,.btn{
+font-family:inherit; font-weight:700; border:0; cursor:pointer; border-radius:16px;
+text-decoration:none; display:inline-flex; align-items:center; justify-content:center; gap:6px;
+transition:transform .15s, filter .15s;
+}
+button:active,.btn:active{transform:scale(.95)}
+input,select,textarea{
+font-family:inherit; font-size:16px; color:#fff; background:rgba(0,0,0,.28);
+border:1px solid var(--borde); border-radius:12px; padding:11px 13px; width:100%;
+}
+input::placeholder,textarea::placeholder{color:rgba(255,255,255,.45)}
+select option{color:#111}
+.row{display:flex; gap:8px; align-items:center}
+.row > input{flex:1}
+.mini{font-size:14px; opacity:.75; margin:4px 0 10px}
+#toast{
+position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(120px);
+background:#fff; color:#2b0a5a; font-weight:700; padding:12px 20px; border-radius:999px;
+box-shadow:0 10px 30px rgba(0,0,0,.35); transition:transform .3s; z-index:60; max-width:90vw; text-align:center;
+}
+#toast.on{transform:translateX(-50%) translateY(0)}
+/* ---------- INVITACIÓN ---------- */
+.invit{text-align:center}
+.bola{font-size:78px; display:inline-block; animation:bola 2.2s ease-in-out infinite; filter:drop-shadow(0 0 25px rgba(255,255,255,.5))}
+@keyframes bola{0%,100%{transform:translateY(0) rotate(-8deg)}50%{transform:translateY(-14px) rotate(8deg)}}
+.pre{margin:6px 0 0; font-weight:600; color:var(--amarillo); text-transform:uppercase; letter-spacing:2px; font-size:14px}
+.hola{
+font-family:'Bungee',cursive; font-size:clamp(40px,13vw,68px); line-height:1.02; margin:6px 0 8px;
+background:linear-gradient(90deg,var(--amarillo),var(--rosa),var(--celeste),var(--verde),var(--amarillo));
+background-size:300% 100%; -webkit-background-clip:text; background-clip:text; color:transparent;
+animation:arcoiris 6s linear infinite; word-break:break-word;
+}
+@keyframes arcoiris{to{background-position:300% 0}}
+.lead{font-size:19px; margin:0 0 6px}
+.lead b{color:var(--amarillo)}
+.info{text-align:left}
+.fila{display:flex; gap:14px; align-items:flex-start; padding:10px 0; border-bottom:1px dashed var(--borde)}
+.fila:last-child{border-bottom:0}
+.fila > span{font-size:28px; line-height:1}
+.fila b{display:block; font-size:18px}
+.fila small{display:block; opacity:.8; font-size:15px; margin-top:2px}
+.fila a{color:var(--celeste); font-weight:600}
+.countdown{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0}
+.countdown div{background:rgba(0,0,0,.3); border:1px solid var(--borde); border-radius:16px; padding:12px 4px}
+.countdown b{font-family:'Bungee',cursive; font-size:28px; display:block; color:var(--verde)}
+.countdown span{font-size:12px; text-transform:uppercase; letter-spacing:1px; opacity:.75}
+.countdown .ya{grid-column:1/-1; font-family:'Bungee',cursive; font-size:22px; color:var(--amarillo)}
+.pregunta h2{font-family:'Bungee',cursive; font-size:26px}
+.botones{position:relative; min-height:170px; display:flex; flex-direction:column; gap:12px; align-items:center; justify-content:center}
+.btn-voy{
+font-size:26px; padding:18px 36px; color:#1a0638;
+background:linear-gradient(135deg,var(--verde),var(--celeste));
+box-shadow:0 0 0 0 rgba(61,255,176,.7); animation:latido 1.6s infinite;
+}
+@keyframes latido{0%{box-shadow:0 0 0 0 rgba(61,255,176,.6)}70%{box-shadow:0 0 0 18px rgba(61,255,176,0)}100%{box-shadow:0 0 0 0 rgba(61,255,176,0)}}
+.btn-no{
+font-size:16px; padding:10px 20px; color:#fff; background:rgba(255,255,255,.12);
+border:1px solid var(--borde); transition:left .25s, top .25s, transform .15s;
+}
+.btn-no.suelto{position:absolute}
+.respuesta{font-size:20px; font-weight:600; margin:6px 0 4px}
+.respuesta .grande{font-family:'Bungee',cursive; font-size:32px; display:block; margin-bottom:6px}
+.respuesta.voy .grande{color:var(--verde)}
+.respuesta.no .grande{color:var(--rosa)}
+.link-btn{background:none; color:var(--celeste); text-decoration:underline; font-size:16px; padding:8px; font-weight:600}
+.btn-chico{padding:11px 16px; background:var(--amarillo); color:#2b0a5a; font-size:16px; white-space:nowrap}
+.tema h3,.faq h3{font-family:'Bungee',cursive; font-size:20px}
+.faq{text-align:left}
+.faq details{border-bottom:1px dashed var(--borde); padding:10px 0}
+.faq details:last-child{border-bottom:0}
+.faq summary{cursor:pointer; font-weight:600; font-size:17px}
+.faq p{margin:8px 0 2px; opacity:.85}
+.pie{font-size:13px; opacity:.6; margin-top:20px}
+.cargando{text-align:center; padding:80px 0; font-size:22px}
+.cargando .bola{font-size:60px}
+/* ---------- PANEL ---------- */
+.admin header{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+.admin header h1{font-family:'Bungee',cursive; font-size:26px; margin:0}
+.demo-badge{background:var(--amarillo); color:#2b0a5a; font-weight:700; font-size:12px; padding:4px 10px; border-radius:999px; vertical-align:middle; margin-left:6px}
+.aviso{background:rgba(255,210,63,.12); border:1px solid rgba(255,210,63,.4); border-radius:14px; padding:12px 14px; font-size:14px; margin-top:12px}
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:16px}
+.stat{background:var(--card); border:1px solid var(--borde); border-radius:18px; padding:14px 8px; text-align:center}
+.stat b{font-family:'Bungee',cursive; font-size:30px; display:block}
+.stat span{font-size:13px; opacity:.8}
+.stat.voy b{color:var(--verde)} .stat.no b{color:var(--rosa)} .stat.pend b{color:var(--amarillo)}
+.btn-prim{background:linear-gradient(135deg,var(--rosa),var(--violeta)); color:#fff; padding:11px 18px; font-size:16px; white-space:nowrap}
+.btn-sec{background:rgba(255,255,255,.12); color:#fff; border:1px solid var(--borde); padding:10px 16px; font-size:15px}
+.btn-wa{background:#25d366; color:#06331a; padding:10px 16px; font-size:15px}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.grid2 label,.campo{display:flex; flex-direction:column; gap:4px; font-size:14px; font-weight:600}
+.grid2 .full{grid-column:1/-1}
+details > summary{cursor:pointer; font-weight:700; font-size:17px}
+.card > details > summary{font-size:19px}
+.lista-head{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap}
+.lista-head input{max-width:240px}
+.filtros{display:flex; gap:6px; flex-wrap:wrap; margin:12px 0}
+.filtros button{background:rgba(255,255,255,.08); color:#fff; border:1px solid var(--borde); padding:7px 12px; font-size:14px; border-radius:999px}
+.filtros button.on{background:#fff; color:#2b0a5a}
+.item{display:grid; grid-template-columns:1fr auto; gap:8px 12px; align-items:center; padding:12px; border-radius:16px; background:rgba(0,0,0,.22); margin-bottom:8px; border-left:5px solid var(--amarillo)}
+.item.voy{border-left-color:var(--verde)} .item.novoy{border-left-color:var(--rosa)}
+.item .nom b{font-size:17px}
+.item .nom small{display:block; opacity:.7; font-size:13px; margin-top:2px}
+.pill{font-size:13px; font-weight:700; padding:4px 10px; border-radius:999px; white-space:nowrap}
+.pill.voy{background:rgba(61,255,176,.18); color:var(--verde)}
+.pill.novoy{background:rgba(255,61,154,.18); color:var(--rosa)}
+.pill.pendiente{background:rgba(255,210,63,.18); color:var(--amarillo)}
+.acc{grid-column:1/-1; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.acc button,.acc a{font-size:14px; padding:8px 12px; border-radius:12px}
+.acc select{width:auto; padding:7px 10px; font-size:14px}
+.acc .del{background:rgba(255,61,154,.15); color:var(--rosa); border:1px solid rgba(255,61,154,.35)}
+.vacio{text-align:center; opacity:.7; padding:24px 0}
+pre.preview{white-space:pre-wrap; background:rgba(0,0,0,.3); border-radius:12px; padding:12px; font-family:inherit; font-size:15px; margin:12px 0 0; max-height:260px; overflow:auto}
+.btns{display:flex; gap:8px; flex-wrap:wrap}
+.login{max-width:380px; margin:10vh auto 0}
+.login .campo{margin-bottom:10px}
+.error{color:var(--rosa); font-weight:600; min-height:20px; margin:6px 0}
+@media (max-width:600px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.grid2{grid-template-columns:1fr}
+.lista-head input{max-width:none}
+}
+</style>
+</head>
+<body>
+<canvas id="confeti"></canvas>
+<div id="app"></div>
+<div id="toast"></div>
+<script type="module">
+/* =========================================================
+1) CONFIGURACIÓN DE FIREBASE
+Pegá acá los datos de tu proyecto (Configuración del proyecto > Tus apps > Web).
+Mientras apiKey empiece con "TU_", la página funciona en MODO DEMO
+(guarda todo en este navegador, sirve solo para probar).
+========================================================= */
+const FIREBASE_CONFIG = {
+apiKey: "AIzaSyBvQ_nFt0VUXbv4fyu23OS0FFYE0PXcF48",
+authDomain: "cumple-roldan.firebaseapp.com",
+projectId: "cumple-roldan",
+storageBucket: "cumple-roldan.firebasestorage.app",
+messagingSenderId: "713795005296",
+appId: "1:713795005296:web:425a3ec17e57c4f969bdb5"
+};
+/* Datos por defecto de la fiesta (después se editan desde el panel) */
+const EVENTO_DEFAULT = {
+festejado: "",
+fecha: "",
+hora: "21:00",
+lugar: "Quinta en Roldán",
+mapsUrl: "",
+detalles: ""
+};
+const DEMO = FIREBASE_CONFIG.apiKey.startsWith("TU_");
+const app = document.getElementById("app");
+/* ---------------- utilidades ---------------- */
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const $ = sel => document.querySelector(sel);
+let toastTimer;
+function toast(msg){
+const t = $("#toast");
+t.textContent = msg; t.classList.add("on");
+clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove("on"), 2600);
+}
+async function copiar(texto){
+try { await navigator.clipboard.writeText(texto); return true; }
+catch {
+const ta = document.createElement("textarea");
+ta.value = texto; ta.style.position = "fixed"; ta.style.opacity = "0";
+document.body.appendChild(ta); ta.select();
+let ok = false; try { ok = document.execCommand("copy"); } catch {}
+ta.remove(); return ok;
+}
+}
+function slug(s){
+return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 14) || "invitado";
+}
+function nuevoId(nombre){
+const a = "abcdefghjkmnpqrstuvwxyz23456789";
+const r = crypto.getRandomValues(new Uint8Array(6));
+let c = ""; for (const x of r) c += a[x % a.length];
+return slug(nombre) + "-" + c;
+}
+function baseUrl(){ return location.href.split("#")[0].split("?")[0]; }
+function linkDe(id){ return baseUrl() + "?i=" + encodeURIComponent(id); }
+function fechaEvento(ev){
+if (!ev.fecha) return null;
+const d = new Date(ev.fecha + "T" + (ev.hora || "00:00"));
+return isNaN(d) ? null : d;
+}
+function fechaTexto(ev){
+const d = fechaEvento(ev);
+if (!d) return "Fecha a confirmar 👀";
+const t = d.toLocaleDateString("es-AR", { weekday:"long", day:"numeric", month:"long" });
+return t.charAt(0).toUpperCase() + t.slice(1);
+}
+function haceCuanto(ms){
+if (!ms) return "";
+const m = Math.round((Date.now() - ms) / 60000);
+if (m < 1) return "recién";
+if (m < 60) return `hace ${m} min`;
+const h = Math.round(m / 60);
+if (h < 24) return `hace ${h} h`;
+const d = Math.round(h / 24);
+return `hace ${d} día${d > 1 ? "s" : ""}`;
+}
+const festejadoDe = ev => ev.festejado?.trim() || "el cumpleañero";
+/* ---------------- almacenamiento ---------------- */
+function demoStore(){
+const K = "invitacion_demo";
+const subs = new Set();
+const vacio = () => ({ evento:{ ...EVENTO_DEFAULT }, invitados:{} });
+const load = () => { try { return JSON.parse(localStorage.getItem(K)) || vacio(); } catch { return vacio(); } };
+const save = d => { try { localStorage.setItem(K, JSON.stringify(d)); } catch {} subs.forEach(f => f()); };
+window.addEventListener("storage", e => { if (e.key === K) subs.forEach(f => f()); });
+return {
+demo: true,
+async login(){}, async logout(){},
+onAuth(cb){ cb(true); },
+async getEvento(){ return { ...EVENTO_DEFAULT, ...load().evento }; },
+async saveEvento(ev){ const d = load(); d.evento = ev; save(d); },
+async getInvitado(id){ return load().invitados[id] || null; },
+watchInvitados(cb){ const f = () => cb(Object.values(load().invitados)); subs.add(f); f(); return () => subs.delete(f); },
+async addInvitado(inv){ const d = load(); d.invitados[inv.id] = inv; save(d); },
+async updateInvitado(id, data){ const d = load(); if (d.invitados[id]) { Object.assign(d.invitados[id], data); save(d); } },
+async deleteInvitado(id){ const d = load(); delete d.invitados[id]; save(d); }
+};
+}
+async function firebaseStore(){
+const B = "https://www.gstatic.com/firebasejs/10.12.2/";
+const { initializeApp } = await import(B + "firebase-app.js");
+const fs = await import(B + "firebase-firestore.js");
+const au = await import(B + "firebase-auth.js");
+const fb = initializeApp(FIREBASE_CONFIG);
+const db = fs.getFirestore(fb);
+const auth = au.getAuth(fb);
+return {
+demo: false,
+login: () => au.signInWithPopup(auth, new au.GoogleAuthProvider()),
+logout: () => au.signOut(auth),
+onAuth: cb => au.onAuthStateChanged(auth, u => cb(!!u)),
+async getEvento(){
+const s = await fs.getDoc(fs.doc(db, "config", "evento"));
+return { ...EVENTO_DEFAULT, ...(s.exists() ? s.data() : {}) };
+},
+saveEvento: ev => fs.setDoc(fs.doc(db, "config", "evento"), ev),
+async getInvitado(id){
+const s = await fs.getDoc(fs.doc(db, "invitados", id));
+return s.exists() ? { id: s.id, ...s.data() } : null;
+},
+watchInvitados(cb){
+return fs.onSnapshot(fs.collection(db, "invitados"),
+q => cb(q.docs.map(d => ({ id: d.id, ...d.data() }))),
+() => sinPermiso());
+},
+addInvitado: inv => fs.setDoc(fs.doc(db, "invitados", inv.id), inv),
+updateInvitado: (id, data) => fs.updateDoc(fs.doc(db, "invitados", id), data),
+deleteInvitado: id => fs.deleteDoc(fs.doc(db, "invitados", id))
+};
+}
+let store;
+try { store = DEMO ? demoStore() : await firebaseStore(); }
+catch (e) {
+app.innerHTML = `<div class="wrap cargando">😵 No pude conectar con la base de datos.<br><small>Revisá la configuración de Firebase.</small></div>`;
+throw e;
+}
+/* ---------------- confeti ---------------- */
+function confeti(){
+const cv = $("#confeti"), ctx = cv.getContext("2d");
+cv.width = innerWidth; cv.height = innerHeight;
+const cols = ["#ff3d9a","#ffd23f","#3dffb0","#3dd6ff","#8b3dff","#ffffff"];
+const ps = Array.from({ length: 170 }, () => ({
+x: Math.random() * cv.width, y: -20 - Math.random() * cv.height * .6,
+w: 6 + Math.random() * 8, h: 8 + Math.random() * 10,
+vy: 2.5 + Math.random() * 4, vx: -2 + Math.random() * 4,
+r: Math.random() * 6, vr: -.2 + Math.random() * .4, c: cols[Math.floor(Math.random() * cols.length)]
+}));
+const fin = performance.now() + 4200;
+(function loop(t){
+ctx.clearRect(0, 0, cv.width, cv.height);
+for (const p of ps) {
+p.x += p.vx; p.y += p.vy; p.r += p.vr;
+ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r);
+ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore();
+}
+if (t < fin) requestAnimationFrame(loop); else ctx.clearRect(0, 0, cv.width, cv.height);
+})(performance.now());
+}
+/* =========================================================
+VISTA DEL INVITADO
+========================================================= */
+async function vistaInvitado(id){
+app.innerHTML = `<div class="wrap cargando"><div class="bola">🪩</div><br>Calentando la pista...</div>`;
+let inv = null, ev = { ...EVENTO_DEFAULT };
+try { [inv, ev] = await Promise.all([store.getInvitado(id), store.getEvento()]); } catch {}
+if (!inv) {
+app.innerHTML = `<div class="wrap invit"><div class="bola">🤔</div>
+<h1 class="hola" style="font-size:40px">Mmm...</h1>
+<div class="card"><p class="lead">Este link no existe o se rompió en el camino.</p>
+<p class="mini">Pedile a quien te invitó que te lo reenvíe.</p></div></div>`;
+return;
+}
+const fest = esc(festejadoDe(ev));
+const nombre = esc(inv.nombre);
+const maps = ev.mapsUrl ? `<a href="${esc(ev.mapsUrl)}" target="_blank" rel="noopener">📌 Ver en el mapa</a>` : "La ubicación exacta te la pasamos por privado 🤫";
+app.innerHTML = `
+<div class="wrap invit">
+<div class="bola">🪩</div>
+<p class="pre">📢 Atención, atención</p>
+<h1 class="hola">¡${nombre}!</h1>
+<p class="lead">Estás oficialmente invitado/a al cumple de <b>${fest}</b> 🎂</p>
+<div class="card info">
+<div class="fila"><span>📅</span><div><b>${esc(fechaTexto(ev))}</b><small>${ev.hora ? "Desde las " + esc(ev.hora) + " hs (llegar puntual es opcional, irse temprano no)" : "Horario a confirmar"}</small></div></div>
+<div class="fila"><span>📍</span><div><b>${esc(ev.lugar || "Quinta en Roldán")}</b><small>${maps}</small></div></div>
+<div class="fila"><span>🎧</span><div><b>DJ en vivo + música toda la noche</b><small>Hasta que el vecino llame a la policía (es chiste... ¿o no?)</small></div></div>
+${ev.detalles ? `<div class="fila"><span>📝</span><div><b>Info importante</b><small>${esc(ev.detalles)}</small></div></div>` : ""}
+</div>
+<div class="countdown" id="cd"></div>
+<div class="card pregunta">
+<h2>¿Venís o qué? 🤨</h2>
+<div id="resp"></div>
+<div class="botones" id="botones">
+<button class="btn-voy" id="bVoy">¡VOY! 🕺</button>
+<button class="btn-no" id="bNo">No voy 😢</button>
+</div>
+</div>
+<div class="card tema" id="temaBox" hidden>
+<h3>🎶 Pedile un tema al DJ</h3>
+<p class="mini">Si es reggaetón del 2008 no prometemos nada... pero tampoco lo descartamos.</p>
+<div class="row"><input id="tema" maxlength="100" placeholder="Artista - Tema"><button class="btn-chico" id="bTema">Mandar</button></div>
+</div>
+<div class="card faq">
+<h3>Preguntas que nadie hizo 🙋</h3>
+<details><summary>¿Qué me pongo?</summary><p>Algo cómodo para bailar. Los tacos en el pasto de una quinta son deporte extremo.</p></details>
+<details><summary>¿Hasta qué hora es?</summary><p>Hasta que el DJ diga basta. Spoiler: el DJ nunca dice basta.</p></details>
+<details><summary>¿Qué llevo?</summary><p>Ganas de bailar y buena onda. Si caés con algo para tomar, nadie se va a quejar.</p></details>
+<details><summary>¿Puedo llevar a alguien?</summary><p>Preguntale a ${fest} antes. No le caigas con 4 primos y el perro.</p></details>
+<details><summary>¿Y si digo que no y después me arrepiento?</summary><p>Volvés a entrar a este mismo link y cambiás la respuesta. Así de fácil.</p></details>
+</div>
+<p class="pie">Este link es solo tuyo 🔒 Podés cambiar tu respuesta cuando quieras.</p>
+</div>`;
+/* cuenta regresiva */
+const objetivo = fechaEvento(ev), cd = $("#cd");
+if (!objetivo) cd.remove();
+else {
+const tick = () => {
+const diff = objetivo - Date.now();
+if (diff <= 0) {
+cd.innerHTML = `<div class="ya">${diff > -12 * 3600e3 ? "🔥 ¡YA ARRANCÓ! 🔥" : "🎉 ¡Qué fiesta fue! 🎉"}</div>`;
+return;
+}
+const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5) % 24,
+m = Math.floor(diff / 6e4) % 60, s = Math.floor(diff / 1e3) % 60;
+cd.innerHTML = [[d,"días"],[h,"horas"],[m,"min"],[s,"seg"]]
+.map(([n,l]) => `<div><b>${String(n).padStart(2,"0")}</b><span>${l}</span></div>`).join("");
+setTimeout(tick, 1000);
+};
+tick();
+}
+/* botones */
+const botones = $("#botones"), bVoy = $("#bVoy"), bNo = $("#bNo"),
+resp = $("#resp"), temaBox = $("#temaBox"), inTema = $("#tema");
+inTema.value = inv.tema || "";
+const frases = ["¿Seguro? 🥺", "Hay DJ eh 🎧", "Pensalo bien 🤔", "Ok... no voy 😭"];
+let escapes = 0;
+function resetNo(){
+escapes = 0;
+bNo.classList.remove("suelto"); bNo.style.left = bNo.style.top = "";
+bNo.textContent = "No voy 😢";
+}
+function escapar(){
+const W = botones.clientWidth, H = botones.clientHeight;
+bNo.textContent = frases[Math.min(escapes, frases.length - 1)];
+bNo.classList.add("suelto");
+const bw = bNo.offsetWidth, bh = bNo.offsetHeight;
+bNo.style.left = Math.max(0, Math.random() * (W - bw)) + "px";
+bNo.style.top = Math.max(0, Math.random() * (H - bh)) + "px";
+escapes++;
+}
+const debeEscapar = () => inv.estado !== "novoy" && escapes < frases.length - 1;
+if (matchMedia("(hover:hover)").matches) {
+bNo.addEventListener("mouseenter", () => { if (debeEscapar()) escapar(); });
+}
+bNo.addEventListener("click", () => {
+if (debeEscapar()) { escapar(); return; }
+responder("novoy");
+});
+bVoy.addEventListener("click", () => responder("voy"));
+function pintar(){
+temaBox.hidden = inv.estado !== "voy";
+if (inv.estado === "voy") {
+botones.hidden = true;
+resp.innerHTML = `<div class="respuesta voy"><span class="grande">¡EAAAA! 🎉</span>
+Te esperamos. Andá estirando que va a haber baile 💃🕺</div>
+<button class="link-btn" id="bCambiar">Cambiar mi respuesta</button>`;
+} else if (inv.estado === "novoy") {
+botones.hidden = true;
+resp.innerHTML = `<div class="respuesta no"><span class="grande">Bueno... 😢</span>
+La vas a escuchar desde tu casa. Si te arrepentís, todavía estás a tiempo.</div>
+<button class="link-btn" id="bCambiar">¡Me arrepentí, quiero ir!</button>`;
+} else {
+botones.hidden = false; resp.innerHTML = "";
+return;
+}
+$("#bCambiar").onclick = () => {
+botones.hidden = false; resetNo();
+resp.innerHTML = `<p class="mini">¿Cambiaste de idea? Elegí de nuevo 👇</p>`;
+};
+}
+let enviando = false;
+async function responder(estado){
+if (enviando) return; enviando = true;
+try {
+await store.updateInvitado(id, { estado, respondidoEn: Date.now() });
+inv.estado = estado; resetNo(); pintar();
+if (estado === "voy") { confeti(); toast("¡Confirmado! Nos vemos en la pista 🪩"); }
+else toast("Respuesta guardada. Te vamos a extrañar 💔");
+} catch { toast("Uy, no se guardó. Probá de nuevo 🙏"); }
+enviando = false;
+}
+$("#bTema").addEventListener("click", async () => {
+const tema = inTema.value.trim().slice(0, 100);
+if (!tema) { toast("Escribí un tema primero 🎵"); return; }
+try { await store.updateInvitado(id, { tema }); inv.tema = tema; toast("¡Tema enviado al DJ! 🎧"); }
+catch { toast("No se pudo mandar, probá de nuevo 🙏"); }
+});
+pintar();
+}
+/* =========================================================
+PÁGINA SIN LINK
+========================================================= */
+function vistaSinLink(){
+app.innerHTML = `<div class="wrap invit"><div class="bola">🔒</div>
+<h1 class="hola" style="font-size:38px">¡Ey!</h1>
+<div class="card"><p class="lead">Esta es una invitación personal.</p>
+<p class="mini">Si te invitaron, entrá con el link que te llegó por WhatsApp.</p></div></div>`;
+}
+/* =========================================================
+PANEL DE ADMINISTRACIÓN
+========================================================= */
+let cortarLista = null;
+function vistaAdmin(){
+store.onAuth(logueado => {
+if (cortarLista) { cortarLista(); cortarLista = null; }
+logueado ? panel() : login();
+});
+}
+function login(){
+app.innerHTML = `<div class="wrap"><div class="card login" style="text-align:center">
+<div class="bola">🎛️</div>
+<h1 class="bungee" style="font-size:24px">Panel de la fiesta</h1>
+<p class="mini">Entrá con tu cuenta de Google.</p>
+<div class="error" id="lErr"></div>
+<button class="btn-prim" id="bGoogle" style="width:100%">Entrar con Google</button>
+</div></div>`;
+$("#bGoogle").addEventListener("click", async () => {
+$("#lErr").textContent = "";
+try { await store.login(); }
+catch { $("#lErr").textContent = "No se pudo entrar. Probá de nuevo."; }
+});
+}
+function sinPermiso(){
+if (cortarLista) { cortarLista(); cortarLista = null; }
+app.innerHTML = `<div class="wrap"><div class="card login" style="text-align:center">
+<div class="bola">🙅</div>
+<h1 class="bungee" style="font-size:22px">Esta cuenta no tiene acceso</h1>
+<p class="mini">Entrá con la cuenta de Google del organizador.</p>
+<button class="btn-prim" id="bOtra" style="width:100%">Usar otra cuenta</button>
+</div></div>`;
+$("#bOtra").onclick = () => store.logout();
+}
+async function panel(){
+let ev = await store.getEvento().catch(() => ({ ...EVENTO_DEFAULT }));
+let invitados = [];
+let filtro = "todos", busqueda = "";
+app.innerHTML = `
+<div class="wrap admin">
+<header>
+<h1>🎉 Invitados ${store.demo ? '<span class="demo-badge">MODO DEMO</span>' : ""}</h1>
+${store.demo ? "" : '<button class="btn-sec" id="bSalir">Salir</button>'}
+</header>
+${store.demo ? `<div class="aviso">⚠️ <b>Modo demo:</b> los datos se guardan solo en este navegador. Sirve para probar cómo se ve.
+Para que tus amigos puedan confirmar de verdad, pegá tu configuración de Firebase en el archivo (ver LEEME).</div>` : ""}
+<div class="stats">
+<div class="stat"><b id="sTot">0</b><span>Invitados</span></div>
+<div class="stat voy"><b id="sVoy">0</b><span>Vienen 🕺</span></div>
+<div class="stat no"><b id="sNo">0</b><span>No vienen 😢</span></div>
+<div class="stat pend"><b id="sPend">0</b><span>Sin responder 🤷</span></div>
+</div>
+<div class="card">
+<details id="evBox" ${ev.fecha && ev.festejado ? "" : "open"}>
+<summary>⚙️ Datos de la fiesta</summary>
+<form id="fEv" class="grid2" style="margin-top:14px">
+<label>Cumpleañero/a<input name="festejado" placeholder="Nombre" value="${esc(ev.festejado)}"></label>
+<label>Lugar<input name="lugar" value="${esc(ev.lugar)}"></label>
+<label>Fecha<input name="fecha" type="date" value="${esc(ev.fecha)}"></label>
+<label>Hora<input name="hora" type="time" value="${esc(ev.hora)}"></label>
+<label class="full">Link de Google Maps (opcional)<input name="mapsUrl" placeholder="https://maps.app.goo.gl/..." value="${esc(ev.mapsUrl)}"></label>
+<label class="full">Info extra (opcional)<textarea name="detalles" rows="2" placeholder="Ej: traer malla, hay pileta 🏊">${esc(ev.detalles)}</textarea></label>
+<div class="full"><button class="btn-prim">Guardar datos</button></div>
+</form>
+</details>
+</div>
+<div class="card">
+<h2>➕ Agregar invitado</h2>
+<form id="fAdd" class="row"><input id="nuevo" placeholder="Nombre del invitado" maxlength="40"><button class="btn-prim">Agregar</button></form>
+<details style="margin-top:12px"><summary style="font-size:15px;font-weight:600">Agregar varios de una (uno por renglón)</summary>
+<textarea id="varios" rows="5" style="margin-top:10px" placeholder="Juan&#10;Caro&#10;El Tano"></textarea>
+<button class="btn-sec" id="bVarios" style="margin-top:8px">Agregar todos</button>
+</details>
+</div>
+<div class="card">
+<div class="lista-head"><h2 style="margin:0">📋 Lista</h2><input id="buscar" placeholder="🔎 Buscar..."></div>
+<div class="filtros" id="filtros">
+<button data-f="todos" class="on">Todos</button>
+<button data-f="voy">Vienen</button>
+<button data-f="novoy">No vienen</button>
+<button data-f="pendiente">Sin responder</button>
+</div>
+<div id="lista"></div>
+</div>
+<div class="card">
+<h2>📤 Mandar la lista de los que vienen</h2>
+<div class="btns">
+<button class="btn-sec" id="bCopiarConf">📋 Copiar lista</button>
+<a class="btn btn-wa" id="bWaConf" target="_blank" rel="noopener">💬 Mandar por WhatsApp</a>
+<button class="btn-sec" id="bCopiarTemas">🎶 Copiar temas pedidos</button>
+</div>
+<pre class="preview" id="prevConf"></pre>
+</div>
+</div>`;
+if (!store.demo) $("#bSalir").onclick = () => store.logout();
+/* datos de la fiesta */
+$("#fEv").addEventListener("submit", async e => {
+e.preventDefault();
+const f = new FormData(e.target);
+const nuevo = {};
+for (const k of Object.keys(EVENTO_DEFAULT)) nuevo[k] = String(f.get(k) || "").trim();
+try { await store.saveEvento(nuevo); ev = nuevo; toast("Datos guardados ✅"); render(); }
+catch { toast("No se pudo guardar 😕"); }
+});
+/* agregar */
+async function agregar(nombre){
+nombre = nombre.trim().slice(0, 40);
+if (!nombre) return false;
+const inv = { id: nuevoId(nombre), nombre, estado: "pendiente", tema: "", creado: Date.now(), respondidoEn: 0 };
+await store.addInvitado(inv);
+return true;
+}
+$("#fAdd").addEventListener("submit", async e => {
+e.preventDefault();
+const inp = $("#nuevo");
+try { if (await agregar(inp.value)) { toast(`${inp.value.trim()} agregado 🎉`); inp.value = ""; inp.focus(); } }
+catch { toast("No se pudo agregar 😕"); }
+});
+$("#bVarios").addEventListener("click", async () => {
+const nombres = $("#varios").value.split("\n").map(s => s.trim()).filter(Boolean);
+if (!nombres.length) return;
+let n = 0;
+for (const nom of nombres) { try { if (await agregar(nom)) n++; } catch {} }
+$("#varios").value = "";
+toast(`${n} invitado${n === 1 ? "" : "s"} agregado${n === 1 ? "" : "s"} 🎉`);
+});
+/* filtros y búsqueda */
+$("#filtros").addEventListener("click", e => {
+const b = e.target.closest("button"); if (!b) return;
+filtro = b.dataset.f;
+document.querySelectorAll("#filtros button").forEach(x => x.classList.toggle("on", x === b));
+render();
+});
+$("#buscar").addEventListener("input", e => { busqueda = e.target.value.toLowerCase().trim(); render(); });
+/* acciones de la lista */
+const mensajeWa = inv =>
+`¡Hola ${inv.nombre}! 🎉 Estás invitado/a al cumple de ${festejadoDe(ev)} 🎂\n` +
+`📍 ${ev.lugar || "Quinta en Roldán"}${fechaEvento(ev) ? "\n📅 " + fechaTexto(ev) + (ev.hora ? " - " + ev.hora + " hs" : "") : ""}\n` +
+`🎧 Hay DJ, música y joda asegurada 🪩\n\n` +
+`Confirmá acá si venís 👉 ${linkDe(inv.id)}`;
+const lista = $("#lista");
+lista.addEventListener("click", async e => {
+const el = e.target.closest("[data-a]"); if (!el) return;
+const id = el.closest(".item").dataset.id;
+const inv = invitados.find(x => x.id === id); if (!inv) return;
+const a = el.dataset.a;
+if (a === "copy") { (await copiar(linkDe(id))) ? toast("Link copiado 🔗") : toast("No pude copiar 😕"); }
+if (a === "copymsg") { (await copiar(mensajeWa(inv))) ? toast("Mensaje copiado 📋") : toast("No pude copiar 😕"); }
+if (a === "del") {
+if (el.dataset.ok !== "1") {
+el.dataset.ok = "1"; el.textContent = "¿Seguro? Tocá de nuevo";
+setTimeout(() => { el.dataset.ok = ""; el.textContent = "🗑️ Borrar"; }, 3000);
+return;
+}
+try { await store.deleteInvitado(id); toast(`${inv.nombre} borrado`); } catch { toast("No se pudo borrar 😕"); }
+}
+});
+lista.addEventListener("change", async e => {
+const sel = e.target.closest('select[data-a="estado"]'); if (!sel) return;
+const id = sel.closest(".item").dataset.id;
+try { await store.updateInvitado(id, { estado: sel.value, respondidoEn: Date.now() }); toast("Estado actualizado ✅"); }
+catch { toast("No se pudo cambiar 😕"); }
+});
+/* exportar */
+const confirmados = () => invitados.filter(i => i.estado === "voy").sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+const textoConfirmados = () => {
+const c = confirmados();
+if (!c.length) return "Todavía nadie confirmó 🦗";
+return `🎉 Confirmados para el cumple de ${festejadoDe(ev)} (${c.length})\n\n` + c.map((x, i) => `${i + 1}. ${x.nombre}`).join("\n");
+};
+$("#bCopiarConf").onclick = async () => { (await copiar(textoConfirmados())) ? toast("Lista copiada 📋") : toast("No pude copiar 😕"); };
+$("#bCopiarTemas").onclick = async () => {
+const t = invitados.filter(i => i.tema).map(i => `• ${i.tema}  (${i.nombre})`);
+if (!t.length) { toast("Nadie pidió temas todavía 🎵"); return; }
+(await copiar("🎶 Temas pedidos\n\n" + t.join("\n"))) ? toast("Temas copiados 🎧") : toast("No pude copiar 😕");
+};
+/* render */
+const etiqueta = { voy: "✅ Viene", novoy: "❌ No viene", pendiente: "⏳ Sin responder" };
+function render(){
+const tot = invitados.length,
+voy = invitados.filter(i => i.estado === "voy").length,
+no = invitados.filter(i => i.estado === "novoy").length;
+$("#sTot").textContent = tot; $("#sVoy").textContent = voy;
+$("#sNo").textContent = no; $("#sPend").textContent = tot - voy - no;
+const vis = invitados
+.filter(i => filtro === "todos" || (i.estado || "pendiente") === filtro)
+.filter(i => !busqueda || i.nombre.toLowerCase().includes(busqueda))
+.sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+lista.innerHTML = vis.length ? vis.map(i => {
+const est = i.estado || "pendiente";
+const sub = [
+est !== "pendiente" && i.respondidoEn ? "Respondió " + haceCuanto(i.respondidoEn) : "Todavía no respondió",
+i.tema ? "🎶 " + i.tema : ""
+].filter(Boolean).map(esc).join(" · ");
+return `<div class="item ${est}" data-id="${esc(i.id)}">
+<div class="nom"><b>${esc(i.nombre)}</b><small>${sub}</small></div>
+<span class="pill ${est}">${etiqueta[est]}</span>
+<div class="acc">
+<a class="btn btn-wa" href="https://wa.me/?text=${encodeURIComponent(mensajeWa(i))}" target="_blank" rel="noopener">💬 Enviar / reenviar</a>
+<button class="btn-sec" data-a="copy">🔗 Copiar link</button>
+<button class="btn-sec" data-a="copymsg">📋 Copiar mensaje</button>
+<select data-a="estado" aria-label="Cambiar estado">
+<option value="pendiente" ${est === "pendiente" ? "selected" : ""}>Sin responder</option>
+<option value="voy" ${est === "voy" ? "selected" : ""}>Viene</option>
+<option value="novoy" ${est === "novoy" ? "selected" : ""}>No viene</option>
+</select>
+<button class="del" data-a="del">🗑️ Borrar</button>
+</div>
+</div>`;
+}).join("") : `<div class="vacio">${invitados.length ? "Nadie en este filtro 🤷" : "Todavía no agregaste invitados. ¡Arrancá arriba! 👆"}</div>`;
+$("#prevConf").textContent = textoConfirmados();
+$("#bWaConf").href = "https://wa.me/?text=" + encodeURIComponent(textoConfirmados());
+}
+cortarLista = store.watchInvitados(lst => { invitados = lst; render(); });
+render();
+}
+/* =========================================================
+ARRANQUE
+========================================================= */
+const params = new URLSearchParams(location.search);
+const codigo = params.get("i");
+if (codigo) vistaInvitado(codigo);
+else if (params.has("admin") || DEMO) vistaAdmin();
+else vistaSinLink();
+</script>
+</body>
+</html>
